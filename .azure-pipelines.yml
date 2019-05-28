@@ -1,6 +1,9 @@
-trigger: ["master"]
-pr: ["master"]
+trigger:
+  - "master"
 
-jobs:
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
   - script: cargo test
     displayName: "Run test"
