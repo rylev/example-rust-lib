@@ -1,0 +1,6 @@
+trigger: ["master"]
+pr: ["master"]
+
+jobs:
+  - script: cargo test
+    displayName: "Run test"
