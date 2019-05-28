@@ -56,8 +56,7 @@ jobs:
         git config user.name 'Deployment Bot (from Azure Pipelines)'
         git config user.email 'deploy@example.com'
         git config --global credential.helper 'store --file ~/.my-credentials'
-        printf "protocol=https\nhost=github.com\nusername=rylev\npassword=%s\n\n" "$GITHUB_TOKEN" | git credential-store --file ~/.my-
-      credentials store
+        printf "protocol=https\nhost=github.com\nusername=rylev\npassword=%s\n\n" "$GITHUB_TOKEN" | git credential-store --file ~/.my-credentials store
         git remote add origin https://github.com/rylev/example-rust-lib
         git checkout -b gh-pages
         git add .
