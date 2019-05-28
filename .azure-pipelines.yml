@@ -4,9 +4,20 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
-steps:
-  - template: .azure-pipelines/install-rust.yml
-    parameters:
-      rust_version: stable
-  - script: cargo test
-    displayName: "Run test"
+jobs:
+  - job: format check
+    displayName: Check that the code is formatted
+    steps:
+    - template: .azure-pipelines/install-rust.yml
+      parameters:
+        rust_version: stable
+    - script: cargo fmt --all -- --check
+      displayName: "Check formatting"
+  - job: testing
+    displayName: Check that the code builds and the tests pass
+    steps:
+    - template: .azure-pipelines/install-rust.yml
+      parameters:
+        rust_version: stable
+    - script: cargo test
+      displayName: "Run test"
