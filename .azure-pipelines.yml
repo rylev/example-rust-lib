@@ -1,12 +1,11 @@
 trigger:
   - "pr"
 
-pool:
-  vmImage: 'ubuntu-latest'
-
 jobs:
   - job: format check
     displayName: Check that the code is formatted
+    pool:
+      vmImage: 'ubuntu-latest'
     steps:
     - template: .azure-pipelines/install-rust.yml
       parameters:
@@ -15,6 +14,8 @@ jobs:
       displayName: "Check formatting"
   - job: testing
     displayName: Check that the code builds and the tests pass
+    pool:
+      vmImage: 'ubuntu-latest'
     steps:
     - template: .azure-pipelines/install-rust.yml
       parameters:
