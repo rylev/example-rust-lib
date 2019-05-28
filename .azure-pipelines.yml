@@ -2,7 +2,7 @@ trigger:
   - "pr"
 
 jobs:
-  - job: format check
+  - job: format_check
     displayName: Check that the code is formatted
     pool:
       vmImage: 'ubuntu-latest'
