@@ -34,9 +34,6 @@ jobs:
     - script: cargo test
       displayName: "Run test"
 
-  parameters:
-  dependsOn: []
-
   - job: documentation
   displayName: 'Deploy API Documentation'
   pool:
