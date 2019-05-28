@@ -5,5 +5,8 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
+  - template: .azure-pipelines/install-rust.yml
+    parameters:
+      rust_version: stable
   - script: cargo test
     displayName: "Run test"
