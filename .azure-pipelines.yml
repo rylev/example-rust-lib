@@ -3,36 +3,36 @@ trigger:
   - "master"
 
 jobs:
-  - job: format_check
-    displayName: Check that the code is formatted
-    pool:
-      vmImage: 'ubuntu-latest'
-    steps:
-    - template: .azure-pipelines/install-rust.yml
-      parameters:
-        rust_version: stable
-    - script: rustup component add rustfmt
-      displayName: "Add rustfmt"
-    - script: cargo fmt --all -- --check
-      displayName: "Check formatting"
-  - job: testing
-    displayName: Check that the code builds and the tests pass
-    strategy:
-      matrix:
-        Linux:
-          vmImage: ubuntu-16.04
-        MacOS:
-          vmImage: macOS-10.13
-        Windows:
-          vmImage: vs2017-win2016
-    pool:
-      vmImage: $(vmImage)
-    steps:
-    - template: .azure-pipelines/install-rust.yml
-      parameters:
-        rust_version: stable
-    - script: cargo test
-      displayName: "Run test"
+  # - job: format_check
+  #   displayName: Check that the code is formatted
+  #   pool:
+  #     vmImage: 'ubuntu-latest'
+  #   steps:
+  #   - template: .azure-pipelines/install-rust.yml
+  #     parameters:
+  #       rust_version: stable
+  #   - script: rustup component add rustfmt
+  #     displayName: "Add rustfmt"
+  #   - script: cargo fmt --all -- --check
+  #     displayName: "Check formatting"
+  # - job: testing
+  #   displayName: Check that the code builds and the tests pass
+  #   strategy:
+  #     matrix:
+  #       Linux:
+  #         vmImage: ubuntu-16.04
+  #       MacOS:
+  #         vmImage: macOS-10.13
+  #       Windows:
+  #         vmImage: vs2017-win2016
+  #   pool:
+  #     vmImage: $(vmImage)
+  #   steps:
+  #   - template: .azure-pipelines/install-rust.yml
+  #     parameters:
+  #       rust_version: stable
+  #   - script: cargo test
+  #     displayName: "Run test"
 
   - job: documentation
     displayName: 'Deploy API Documentation'
@@ -62,7 +62,7 @@ jobs:
         git init
         git config user.name 'Deployment Bot (from Azure Pipelines)'
         git config user.email 'deploy@example.com'
-        ls -la .ssh
+        ls -la ~/.ssh
         git remote add origin git@github.com:rylev/example-rust-lib
         git checkout -b gh-pages
         git add .
