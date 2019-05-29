@@ -49,19 +49,36 @@ jobs:
         cargo doc --all --no-deps
         cp -R target/doc '$(Build.BinariesDirectory)'
       displayName: 'Generate Documentation'
+
+
+    - task: InstallSSHKey@0
+      inputs:
+        hostName: github.com,192.30.252.128 ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAq2A7hRGmdnm9tUDbO9IDSwBK6TbQa+PXYPCPy6rbTrTtw7PHkccKrpp0yVhp5HdEIcKr6pLlVDBfOLX9QUsyCOV0wzfjIJNlGEYsdlLJizHhbn2mUjvSAHQqZETYP81eFzLQNnPHt4EVVUh7VfDESU84KezmD5QlWpXLmvU31/yMf+Se8xhHTvKSCZIFImWwoG6mbUoWf9nzpIoaSjB+weqqUUmpaaasXVal72J+UX2B+2RPW3RcT0eOzQgqlJL3RKrTJvdsjE3JEAvGq3lGHSZXy28G3skua2SmVi/w4yCE6gbODqnTWlg7+wC604ydGXA8VJiS5ap43JXiUFFAaQ==
+        sshPublicKey: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDVb5XkAyMkqZLGxPhHB45Tobe+GejryNj9lc2NCSPWNK9/HcyntVulYk7ZRRmhenlJqn0sVrS/OqcQy+D5r4apQmvRPQizIbiZSNXF+vAMvSyGfC2Dhu94VKBWzwCzvOgOIZYgG9n3IUg6nOCtPKy/TEuXcIk1lGG+WItIfG/PQYDL44/FOpIIGPYSbgzTeuCJ8Wb/B6tga4HouCUhulVK/ENnUGHdYqVjs+Qzr0kzrJzxY7n3ZJDNgiqJ02GFYPZhcbKrJSlivXOFn8uczv3hUmhj7Ag898d34fZg+Bzn+feU+mpsRKZcR5YvSmUsPW1DsxqSswXSyJyR2z65LnPN ryanlevick@Ryans-MacBook-Pro.local
+        sshKeySecureFile: test_rsa
     - script: |
         set -e
 
         git init
         git config user.name 'Deployment Bot (from Azure Pipelines)'
         git config user.email 'deploy@example.com'
-        git config --global credential.helper 'store --file ~/.my-credentials'
-        printf "protocol=https\nhost=github.com\nusername=rylev\npassword=%s\n\n" "$GITHUB_TOKEN" | git credential-store --file ~/.my-credentials store
-        git remote add origin https://github.com/rylev/example-rust-lib
+        ls -la .ssh
+        git remote add origin git@github.com:rylev/example-rust-lib
         git checkout -b gh-pages
         git add .
-        git commit -m 'Deploy documentation'
+        git commit -m 'Deploy documentation **NO_CI**'
         git push -f origin gh-pages
+
+        # git init
+        # git config user.name 'Deployment Bot (from Azure Pipelines)'
+        # git config user.email 'deploy@example.com'
+        # git config --global credential.helper 'store --file ~/.my-credentials'
+        # printf "protocol=https\nhost=github.com\nusername=rylev\npassword=%s\n\n" "$GITHUB_TOKEN" | git credential-store --file ~/.my-credentials store
+        # git remote add origin https://github.com/rylev/example-rust-lib
+        # git checkout -b gh-pages
+        # git add .
+        # git commit -m 'Deploy documentation **NO_CI**'
+        # git push -f origin gh-pages
       env:
         GITHUB_TOKEN: $(githubPersonalToken)
       workingDirectory: '$(Build.BinariesDirectory)'
