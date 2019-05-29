@@ -38,9 +38,9 @@ jobs:
     displayName: 'Deploy API Documentation'
     pool:
       vmImage: 'Ubuntu 16.04'
-    dependsOn:
-      - format_check
-      - testing
+    # dependsOn:
+    #   - format_check
+    #   - testing
     steps:
     - template: .azure-pipelines/install-rust.yml
       parameters:
